@@ -12,7 +12,8 @@ app.set("view engine", "ejs");
 // schema setup
 let campgroundSchema = new mongoose.Schema({
     name: String,
-    image: String
+    image: String,
+    description: String
 });
 
 let Campground = mongoose.model("Campground", campgroundSchema);
@@ -21,6 +22,7 @@ app.get("/", function(req,res) {
     res.render("landing");
 });
 
+// INDEX
 app.get("/campgrounds", function(req,res) {
     Campground.find({}, function(err, campgrounds) {
         if (err) {
@@ -31,10 +33,12 @@ app.get("/campgrounds", function(req,res) {
     }) 
 });
 
+// CREATE
 app.post("/campgrounds", function(req,res) {
     let name = req.body.name;
     let image = req.body.url;
-    let newCampground = {name: name, image: image};
+    let description = req.body.description;
+    let newCampground = {name: name, image: image, description: description};
     Campground.create(newCampground, function(err, thing) {
         if (err) {
             console.log(err);
@@ -47,10 +51,22 @@ app.post("/campgrounds", function(req,res) {
     
 });
 
+// NEW
 app.get("/campgrounds/new", function(req,res) {
     res.render("new")
 });
 
+// SHOW
+app.get("/campgrounds/:id", function(req,res) {
+    Campground.findById(req.params.id, function(err, campground) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.render("show", {campground: campground});
+        }
+    });
+});
+
 app.listen(port, function() {
     console.log("YelpCamp has started");
-})
+});
