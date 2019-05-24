@@ -1,3 +1,7 @@
 #navbarSpace {
-    margin-bottom: 4em;
+    margin-bottom: 8em;
+}
+
+.ui.comments {
+    max-width: 100% !important;
 }

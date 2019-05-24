@@ -1,0 +1,23 @@
+<% include ../partials/header %>
+
+<div class="ui text container">
+    <h1 class="ui header">Create a New Campground</h1>
+    <form class="ui form" action="/campgrounds" method="post">
+        <div class="field">
+            <label>Name</label>
+            <input type="text" name="name" placeholder="Campground Name">
+        </div>
+        <div class="field">
+            <label>Image</label>
+            <input type="text" name="image" placeholder="Image URL">
+        </div>
+        <div class="field">
+            <textarea name="description" placeholder="Please write a description" rows="5"></textarea>
+        </div>
+        <button class="ui button" type="submit">Submit</button>
+    </form>
+    <div class="ui divider"></div>
+    <a href="/campgrounds">Go Back</a>
+</div>
+
+<% include ../partials/footer %>
