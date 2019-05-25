@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <div class="ui massive fixed inverted menu">
+    <div class="ui huge fixed inverted menu">
         <div class="ui container">
             <a href="/" class="header item">
                 <i class="icon home"></i>
@@ -18,12 +18,27 @@
             </a>
             <a href="/campgrounds" class="item">Campgrounds</a>
             <div class="right menu">
+                
+                <% if(!currentUser) { %>
+
                 <div class="item">
-                    <a class="ui button">Log in</a>
+                    <a href="/login" class="ui button inverted">Log in</a>
                 </div>
                 <div class="item">
-                    <a class="ui primary button">Sign Up</a>
+                    <a href="/register" class="ui primary button inverted"">Sign Up</a>
                 </div>
+                
+                <% } else { %>
+
+                <div class="item">
+                    <i class="user icon"></i> <%= currentUser.username %>
+                </div>
+                
+                <div class="item">
+                    <a href="/logout" class="ui red button inverted"">Logout</a>
+                </div>
+
+                <% }; %>
             </div>
         </div>
     </div>
