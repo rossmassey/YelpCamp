@@ -6,7 +6,8 @@ const   express = require('express'),
         passport = require('passport'),
         localStrategy = require('passport-local'),
         methodOverride = require('method-override'),
-        expressSanitizer    = require('express-sanitizer');
+        expressSanitizer    = require('express-sanitizer'),
+        flash = require('connect-flash');
 
 const   Campground = require("./models/campground"),
         Comment = require("./models/comment"),
@@ -35,6 +36,7 @@ app.use(require('express-session')({
 }));
 app.use(methodOverride("_method"));
 app.use(expressSanitizer());
+app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -44,6 +46,8 @@ passport.deserializeUser(User.deserializeUser());
 
 app.use(function (req, res, next) {
     res.locals.currentUser = req.user; // adds currentUser to all of our templates
+    res.locals.error = req.flash("error"); // adds access to flash to all of our templates
+    res.locals.success = req.flash("success"); // adds access to flash to all of our templates // adds access to flash to all of our templates
     next();
 });
 

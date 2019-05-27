@@ -6,10 +6,15 @@
 <head>
     <title>YelpCamp</title>
     <link rel="stylesheet" href="/stylesheets/main.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 </head>
 
 <body>
+    <div id="page-container">
+            <div id="content-wrap"> 
     <div class="ui huge fixed inverted menu">
         <div class="ui container">
             <a href="/" class="header item">
@@ -24,7 +29,7 @@
                 <div class="item">
                     <a href="/register" class="ui button inverted"">Sign Up</a>
                 </div>
-                <div class="item">
+                <div class=" item">
                         <a href="/login" class="ui primary button inverted">Log in</a>
                 </div>
 
@@ -42,5 +47,38 @@
             </div>
         </div>
     </div>
-    <div id="navbarSpace"></div>
+    <div id="navbar-space"></div>
+                <div class="ui container">
+                    <% if(error && error.length > 0) { %>
+
+                    <div class="ui icon red message">
+                        <i class="exclamation triangle icon"></i>
+                        <div class="content">
+                            <div class="header">
+                                Error
+                            </div>
+                            <p><%= error %></p>
+                        </div>
+                    </div>
+
+                    <% } %>
+                    <% if(success&& success.length > 0) { %>
+
+                    <div class="ui icon yellow message">
+                        <i class="exclamation circle icon"></i>
+                        <div class="content">
+                            <div class="header">
+                                Success
+                            </div>
+                            <p><%= success %></p>
+                        </div>
+                    </div>
+
+                    <% } %>
+                </div>
+
+
+                <div class="ui divider hidden"></div>
+
+
                 <!-- header ends here -->

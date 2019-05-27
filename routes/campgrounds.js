@@ -65,7 +65,7 @@ router.get("/:id/edit", middleware.checkCampgroundOwnership, function (req, res)
             res.render("campgrounds/edit", { campground: campground });
         });
     } else {
-        console.log("Need to be logged in to do that");
+        req.flash("error", "Please login first!");
     }
 });
 
@@ -84,6 +84,7 @@ router.put("/:id", middleware.checkCampgroundOwnership, function (req, res) {
         if (err) {
             console.log(err);
         } else {
+            req.flash("success", "Updated " + campground.name);
             res.redirect("/campgrounds/" + req.params.id);
         }
     });
@@ -91,14 +92,15 @@ router.put("/:id", middleware.checkCampgroundOwnership, function (req, res) {
 
 // DESTROY
 router.delete("/:id", middleware.checkCampgroundOwnership, function (req, res) {
-    Campground.findByIdAndRemove(req.params.id, function (err, campgroundRemoved) {
+    Campground.findByIdAndRemove(req.params.id, function (err, campground) {
         if (err) {
             console.log(err);
         }
-        Comment.deleteMany({ _id: { $in: campgroundRemoved.comments } }, (err) => {
+        Comment.deleteMany({ _id: { $in: campground.comments } }, (err) => {
             if (err) {
                 console.log(err);
             }
+            req.flash("success", "Deleted " + campground.name);
             res.redirect("/campgrounds");
         });
     })
