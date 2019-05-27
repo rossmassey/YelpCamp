@@ -4,6 +4,8 @@ const router = express.Router();
 const Campground = require('../models/campground');
 const Comment = require('../models/comment');
 
+const middleware = require("../middleware");
+
 // INDEX
 router.get("/", function (req, res) {
     ;
@@ -17,7 +19,7 @@ router.get("/", function (req, res) {
 });
 
 // CREATE
-router.post("/", isLoggedIn, function (req, res) {
+router.post("/", middleware.isLoggedIn, function (req, res) {
     let newCampground = {
         name: req.body.name,
         image: req.body.image,
@@ -41,7 +43,7 @@ router.post("/", isLoggedIn, function (req, res) {
 });
 
 // NEW
-router.get("/new", isLoggedIn, function (req, res) {
+router.get("/new", middleware.isLoggedIn, function (req, res) {
     res.render("campgrounds/new")
 });
 
@@ -57,7 +59,7 @@ router.get("/:id", function (req, res) {
 });
 
 // EDIT
-router.get("/:id/edit", checkCampgroundOwnership, function (req, res) {
+router.get("/:id/edit", middleware.checkCampgroundOwnership, function (req, res) {
     if (req.isAuthenticated()) {
         Campground.findById(req.params.id, function (err, campground) {
             res.render("campgrounds/edit", { campground: campground });
@@ -68,7 +70,7 @@ router.get("/:id/edit", checkCampgroundOwnership, function (req, res) {
 });
 
 // UPDATE
-router.put("/:id", checkCampgroundOwnership, function (req, res) {
+router.put("/:id", middleware.checkCampgroundOwnership, function (req, res) {
     let newCampground = {
         name: req.body.name,
         image: req.body.image,
@@ -88,7 +90,7 @@ router.put("/:id", checkCampgroundOwnership, function (req, res) {
 });
 
 // DESTROY
-router.delete("/:id", checkCampgroundOwnership, function (req, res) {
+router.delete("/:id", middleware.checkCampgroundOwnership, function (req, res) {
     Campground.findByIdAndRemove(req.params.id, function (err, campgroundRemoved) {
         if (err) {
             console.log(err);
@@ -101,35 +103,5 @@ router.delete("/:id", checkCampgroundOwnership, function (req, res) {
         });
     })
 });
-
-
-function checkCampgroundOwnership(req, res, next) {
-    if (req.isAuthenticated()) {
-        Campground.findById(req.params.id, function (err, campground) {
-            if (err) {
-                console.log(err);
-                res.redirect("back");
-            } else {
-                if (campground.author.id.equals(req.user._id)) {
-                    next();
-                } else {
-                    console.log("You are not campground creator");
-                    res.redirect("back");
-                }       
-            }
-        });
-    } else {
-        console.log("Need to be logged in to do that");
-        res.redirect("back");
-    }
-};
-
-//TODO move to middleware file
-function isLoggedIn(req, res, next) {
-    if (req.isAuthenticated()) {
-        return next();
-    }
-    res.redirect("/login");
-};
 
 module.exports = router;

@@ -26,22 +26,24 @@
                         </div>
 
                         <div class="ui basic segment">
-                           <p><%- campground.description %></p> 
+                            <p><%- campground.description %></p>
                         </div>
                         <% if(currentUser && campground.author.id.equals(currentUser._id)){ %>
                         <form action="/campgrounds/<%= campground._id%>/?_method=DELETE" method="POST">
-                            <button class="ui button basic mini red right floated">
+                            <button class="ui button basic small red right floated">
                                 <i class="trash icon"></i> Delete
                             </button>
                         </form>
-                        <a href="/campgrounds/<%= campground._id%>/edit" class="ui button basic mini black right floated" tabindex="0">
+                        <a href="/campgrounds/<%= campground._id%>/edit"
+                            class="ui button basic small black right floated" tabindex="0">
                             Edit
                         </a>
                         <% } %>
-                        <a href="/campgrounds/<%= campground._id%>/comments/new" class="ui button basic mini black" tabindex="0">
+                        <a href="/campgrounds/<%= campground._id%>/comments/new" class="ui button basic small black"
+                            tabindex="0">
                             Leave a Comment
                         </a>
-                        <div class="ui comments">
+                        <div class="ui large comments">
                             <% campground.comments.forEach(function(comment) { %>
                             <div class="ui divider"></div>
                             <div class="comment">
@@ -53,23 +55,33 @@
                                     <div class="text">
                                         <%= comment.text %>
                                     </div>
+                                    <!-- TODO: CHECK USER -->
+                                    <% if(currentUser && comment.author.id.equals(currentUser._id)){ %>
+                                    <div class="actions">
+                                        <a href="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>/edit"
+                                            tabindex="0">
+                                            Edit
+                                        </a>
+                                        <form id="commentDelete"
+                                            action="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>?_method=DELETE"
+                                            method="POST" style="display: inline">
+                                            <a href="javascript:{}"
+                                                onclick="document.getElementById('commentDelete').submit(); return false;"
+                                                tabindex="0">
+                                                Delete
+                                            </a>
+                                        </form>
+                                    </div>
+                                    <% } %>
                                 </div>
                             </div>
                             <% }); %>
                         </div>
-
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-
-
-
-
-
 </div>
 
 

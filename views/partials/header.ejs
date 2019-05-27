@@ -18,22 +18,22 @@
             </a>
             <a href="/campgrounds" class="item">Campgrounds</a>
             <div class="right menu">
-                
+
                 <% if(!currentUser) { %>
 
                 <div class="item">
-                    <a href="/login" class="ui button inverted">Log in</a>
+                    <a href="/register" class="ui button inverted"">Sign Up</a>
                 </div>
                 <div class="item">
-                    <a href="/register" class="ui primary button inverted"">Sign Up</a>
+                        <a href="/login" class="ui primary button inverted">Log in</a>
                 </div>
-                
+
                 <% } else { %>
 
                 <div class="item">
                     <i class="user icon"></i> <%= currentUser.username %>
                 </div>
-                
+
                 <div class="item">
                     <a href="/logout" class="ui red button inverted"">Logout</a>
                 </div>
@@ -43,4 +43,4 @@
         </div>
     </div>
     <div id="navbarSpace"></div>
-    <!-- header ends here -->
+                <!-- header ends here -->

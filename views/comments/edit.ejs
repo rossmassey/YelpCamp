@@ -1,0 +1,16 @@
+<% include ../partials/header %>
+
+<div class="ui text container">
+    <h1 class="ui header">Edit Comment</h1>
+    <form class="ui form" action="/campgrounds/<%= campground_id %>/comments/<%= comment._id %>?_method=PUT" method="post">
+        <div class="field">
+            <label>Comment</label>
+            <textarea name="comment[text]" placeholder="Write your comment" rows="5"><%= comment.text %></textarea>
+        </div>
+        <button class="ui button" type="submit">Submit</button>
+    </form>
+    <div class="ui divider"></div>
+    <a href="/campgrounds/<%= campground_id %>">Go Back</a>
+</div>
+
+<% include ../partials/footer %>
