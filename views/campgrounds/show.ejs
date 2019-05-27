@@ -8,23 +8,29 @@
                 <div class="four wide column">
                     <!-- left column-->
                     <div class="ui vertical menu">
-                        <a class="active item">Editorials</a>
-                        <a class="item">Reviews</a>
-                        <a class="item">Upcoming Events</a>
+                        <a class="active item">Info</a>
+                        <a class="item">Images</a>
                     </div>
                 </div>
                 <div class="twelve wide right floated column">
-
                     <img class="ui fluid image rounded" src="<%= campground.image %>">
-
-                    <div class="ui segment">
+                    <div class="ui secondary segment">
                         <div class="ui blue clearing segment">
                             <h1 class="ui header left floated"><%= campground.name %></h1>
                             <!-- TODO: add price -->
-                            <h2 class="ui header right floated">$9.00 / night</h2>
+                            <h3 class="ui header right floated">$9.00 / night</h3>
+                            <div class="ui section divider hidden"></div>
+                            <div class="ui blue bottom right attached label">
+                                <em>Submitted by <%= campground.author.username %></em>
+                            </div>
                         </div>
-                        <p><%= campground.description %></p>
-                        <div class="ui section divider hidden"></div>
+
+                        <div class="ui basic segment">
+                           <p><%= campground.description %></p> 
+                        </div>
+                        <!-- <a href="#" class="ui button yellow right floated" tabindex="0">
+                            Edit
+                        </a> -->
                         <a href="/campgrounds/<%= campground._id%>/comments/new" class="ui button basic" tabindex="0">
                             Leave a Comment
                         </a>
@@ -33,7 +39,7 @@
                             <div class="ui divider"></div>
                             <div class="comment">
                                 <div class="content">
-                                    <a class="author"><%= comment.author %></a>
+                                    <a class="author"><%= comment.author.username %></a>
                                     <div class="metadata">
                                         <div class="date">2 days ago</div>
                                     </div>
@@ -44,6 +50,8 @@
                             </div>
                             <% }); %>
                         </div>
+
+
                     </div>
                 </div>
             </div>

@@ -16,8 +16,17 @@ router.get("/", function (req, res) {;
 });
 
 // CREATE
-router.post("/", function (req, res) {
-    let newCampground = { name: req.body.name, image: req.body.image, description: req.body.description };
+router.post("/", isLoggedIn, function (req, res) {
+    let newCampground = { 
+        name: req.body.name, 
+        image: req.body.image, 
+        description: req.body.description ,
+        author: {
+            id: req.user._id,
+            username: req.user.username
+        }
+    };
+    console.log(newCampground);
     Campground.create(newCampground, function (err, thing) {
         if (err) {
             console.log(err);
