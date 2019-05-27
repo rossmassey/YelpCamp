@@ -29,14 +29,14 @@ router.get("/login", function (req, res) {
     res.render("login");
 });
 
-router.post("/login", passport.authenticate("local", {
-    successRedirect: "/campgrounds",
-    failureRedirect: "/login"
-}), function (req, res) { });
+router.post("/login", passport.authenticate("local",{
+    successRedirect : "/",
+    failureRedirect : "/login"
+}));
 
 router.get("/logout", function (req, res) {
     req.logout();
-    res.redirect("/");
+    res.redirect("back");
 });
 
 //TODO move to middleware file

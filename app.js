@@ -4,7 +4,9 @@ const   express = require('express'),
         bodyParser = require('body-parser'),
         mongoose = require('mongoose'),
         passport = require('passport'),
-        localStrategy = require('passport-local');
+        localStrategy = require('passport-local'),
+        methodOverride = require('method-override'),
+        expressSanitizer    = require('express-sanitizer');
 
 const   Campground = require("./models/campground"),
         Comment = require("./models/comment"),
@@ -31,6 +33,8 @@ app.use(require('express-session')({
     resave: false,
     saveUninitialized: false
 }));
+app.use(methodOverride("_method"));
+app.use(expressSanitizer());
 app.use(passport.initialize());
 app.use(passport.session());
 
