@@ -23,7 +23,7 @@ const   indexRoutes = require("./routes/index"),
 const port = 3000;
 const app = express();
 
-mongoose.connect("mongodb://localhost/yelp_camp", { useNewUrlParser: true });
+mongoose.connect("mongodb+srv://admin:lizard1010@cluster0-qcia5.mongodb.net/test?retryWrites=true", { useNewUrlParser: true });
 
 app.set("view engine", "ejs");
 
