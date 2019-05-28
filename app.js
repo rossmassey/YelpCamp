@@ -20,7 +20,7 @@ const   indexRoutes = require("./routes/index"),
 //const seedDB = require("./seeds")
 //seedDB();
 
-const port = 3000;
+const port = process.env.PORT || 3000;
 const app = express();
 
 mongoose.connect("mongodb+srv://admin:lizard1010@cluster0-qcia5.mongodb.net/test?retryWrites=true", { useNewUrlParser: true });
@@ -56,5 +56,5 @@ app.use("/campgrounds/:id/comments", commentRoutes);
 app.use("/campgrounds", campgroundRoutes);
 
 app.listen(port, function () {
-    console.log("YelpCamp has started at http://localhost:" + port + "\n")
+    console.log("YelpCamp has started")
 });
